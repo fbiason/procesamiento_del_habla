@@ -1,5 +1,9 @@
 import speech_recognition as sr
 import os
+import sounddevice as sd
+import numpy as np
+import wave
+import tempfile
 
 class ReconocimientoVoz:
     """Manejar el reconocimiento de voz (Speech-to-Text)"""
@@ -62,31 +66,54 @@ class ReconocimientoVoz:
         print(f"\nGrabando desde el micrófono por {duracion} segundos...")
         
         try:
-            with sr.Microphone() as source:
-                # Ajustar para ruido ambiente
-                print("Ajustando para ruido ambiente...")
-                self.recognizer.adjust_for_ambient_noise(source, duration=1)
+            # Configuración de audio
+            sample_rate = 16000  # Hz
+            channels = 1  # Mono
+            
+            print("¡Habla ahora!")
+            
+            # Grabar audio usando sounddevice
+            audio_data = sd.rec(int(duracion * sample_rate), 
+                               samplerate=sample_rate, 
+                               channels=channels, 
+                               dtype='int16')
+            sd.wait()  # Esperar a que termine la grabación
+            
+            print("Grabación completada. Procesando...")
+            
+            # Crear un archivo temporal WAV
+            with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as temp_file:
+                temp_filename = temp_file.name
                 
-                print("Habla ahora...")
-                audio_data = self.recognizer.listen(source, timeout=duracion)
+                # Guardar el audio en formato WAV
+                with wave.open(temp_filename, 'wb') as wf:
+                    wf.setnchannels(channels)
+                    wf.setsampwidth(2)  # 16 bits = 2 bytes
+                    wf.setframerate(sample_rate)
+                    wf.writeframes(audio_data.tobytes())
+            
+            # Usar el archivo temporal para reconocimiento
+            with sr.AudioFile(temp_filename) as source:
+                audio = self.recognizer.record(source)
                 
                 print("Reconociendo voz...")
-                texto = self.recognizer.recognize_google(audio_data, language=idioma)
+                texto = self.recognizer.recognize_google(audio, language=idioma)
                 
-                print(f"Texto reconocido: '{texto}'")
+                print(f"✓ Texto reconocido: '{texto}'")
+                
+                # Eliminar archivo temporal
+                os.unlink(temp_filename)
+                
                 return texto
                 
-        except sr.WaitTimeoutError:
-            print("Tiempo de espera agotado")
-            return None
         except sr.UnknownValueError:
-            print("No se pudo entender el audio")
+            print("✗ No se pudo entender el audio")
             return None
         except sr.RequestError as e:
-            print(f"Error en el servicio de reconocimiento: {e}")
+            print(f"✗ Error en el servicio de reconocimiento: {e}")
             return None
         except Exception as e:
-            print(f"Error inesperado: {e}")
+            print(f"✗ Error inesperado: {e}")
             return None
 
 
