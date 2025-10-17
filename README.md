@@ -1,10 +1,11 @@
-**Actividad Clase 8 - Procesamiento del Habla**
+## Actividad Clase 8 - Procesamiento del Habla
 **Síntesis y Reconocimiento de Voz**
 
-Alumno: Biason Franco
-Materia: Procesamiento del Habla
-Centro Politécnico Malvinas Argentinas - 2025
+- Alumno: Biason Franco
+- Materia: Procesamiento del Habla
+- Centro Politécnico Malvinas Argentinas - 2025
 
+- Actividad Clase 8:
 Este programa implementa dos funcionalidades principales:
 1. **Síntesis de Voz (Text-to-Speech)** - 50%
 2. **Reconocimiento de Voz (Speech-to-Text)** - 50%
