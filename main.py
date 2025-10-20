@@ -3,7 +3,7 @@ from reconocimiento import menu_reconocimiento
 from crear_ejemplo import crear_audio_ejemplo
 
 def main():
-    """Función principal del pr1ograma"""
+    """Función principal del programa"""
     print("="*60)
     print("🎙️  PROGRAMA DE SÍNTESIS Y RECONOCIMIENTO DE VOZ")
     print("="*60)
