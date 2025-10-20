@@ -3,22 +3,22 @@ from reconocimiento import menu_reconocimiento
 from crear_ejemplo import crear_audio_ejemplo
 
 def main():
-    """Función principal del programa"""
+    """Función principal del pr1ograma"""
     print("="*60)
-    print("  PROGRAMA DE SÍNTESIS Y RECONOCIMIENTO DE VOZ")
+    print("🎙️  PROGRAMA DE SÍNTESIS Y RECONOCIMIENTO DE VOZ")
     print("="*60)
-    print("Actividad Clase 8 - Procesamiento del Habla")
+    print("📚 Actividad Clase 8 - Procesamiento del Habla")
     
     while True:
         print("\n" + "="*60)
-        print("MENÚ PRINCIPAL")
+        print("🏠 MENÚ PRINCIPAL")
         print("="*60)
-        print("1. Síntesis de Voz (Text-to-Speech)")
-        print("2. Reconocimiento de Voz (Speech-to-Text)")
-        print("3. Crear archivo de audio de ejemplo")
-        print("4. Salir")
+        print("1. 🔊 Síntesis de Voz (Text-to-Speech)")
+        print("2. 🎤 Reconocimiento de Voz (Speech-to-Text)")
+        print("3. 🎵 Crear archivo de audio de ejemplo")
+        print("4. 🚪 Salir")
         
-        opcion = input("\nSeleccione una opción: ").strip()
+        opcion = input("\n➡️  Seleccione una opción: ").strip()
         
         if opcion == "1":
             menu_sintesis()
@@ -30,11 +30,11 @@ def main():
             crear_audio_ejemplo()
         
         elif opcion == "4":
-            print("\n ¡Nos vemos!")
+            print("\n👋 ¡Nos vemos!")
             break
         
         else:
-            print(" Opción inválida. Por favor seleccione 1, 2, 3 o 4")
+            print("❌ Opción inválida. Por favor seleccione 1, 2, 3 o 4")
 
 if __name__ == "__main__":
     main()
